@@ -28,12 +28,12 @@ const Landing = () => {
       <SParent>
         <SHeader>
           <SLogo src="/images/lazymint_ticker.svg" />
-          <p>Lazymint.Finanace</p>
+          <p>Lazymint.Finance</p>
         </SHeader>
         <Overlay>
           <OverlayTitle>LazyMint</OverlayTitle>
           <OverlayContents>
-            <p>Yield farming project</p> <p>on Bianace Smart Chain</p>
+            <p>Yield farming project</p> <p>on Binance Smart Chain</p>
           </OverlayContents>
           <SWTimer>
             <STimer>{timer}</STimer>
