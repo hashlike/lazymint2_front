@@ -1,9 +1,11 @@
-import React, { useContext } from 'react'
+import React, { lazy, useContext } from 'react'
 import { Menu as UikitMenu, ConnectorId } from '@pantherswap-libs/uikit'
+import { BigNumber } from '@ethersproject/bignumber'
 import { useWeb3React } from '@web3-react/core'
 import { allLanguages } from 'constants/localisation/languageCodes'
 import { LanguageContext } from 'hooks/LanguageContext'
 import useTheme from 'hooks/useTheme'
+import useLazyPrice from 'hooks/useLazyPrice'
 import useGetPriceData from 'hooks/useGetPriceData'
 // import useGetLocalProfile from 'hooks/useGetLocalProfile'
 import { injected, bsc, walletconnect } from 'connectors'
@@ -15,8 +17,12 @@ const Menu: React.FC = (props) => {
   const { isDark, toggleTheme } = useTheme()
   const priceData = useGetPriceData()
 
-  const pantherAddress = '0x1f546aD641B56b86fD9dCEAc473d1C7a357276B7'
-  const cakePriceUsd = priceData && priceData.data[pantherAddress] ? Number(priceData.data[pantherAddress].price) : Number(0)
+  const lazyPrice = useLazyPrice()
+  console.log(lazyPrice.toString())
+  const pantherAddress = '0xF4308ae29c84238f3386C01d3CF6266AC6939ADE'
+  const cakePriceUsd =
+    priceData && priceData.data[pantherAddress] ? Number(priceData.data[pantherAddress].price) : Number(0)
+
   // const profile = useGetLocalProfile()
 
   return (
@@ -40,7 +46,7 @@ const Menu: React.FC = (props) => {
       currentLang={selectedLanguage?.code || ''}
       langs={allLanguages}
       setLang={setSelectedLanguage}
-      cakePriceUsd={cakePriceUsd}
+      cakePriceUsd={lazyPrice.toNumber()}
       cakePriceLink={`https://bscscan.com/token/${pantherAddress}`}
       /* profile={profile} */
       {...props}
